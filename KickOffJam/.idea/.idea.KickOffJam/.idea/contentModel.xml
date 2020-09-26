@@ -1036,7 +1036,11 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
+          <e p="FungusFunctionTesting.cs" t="Include" />
+          <e p="Furniture.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
+          <e p="ProgressManager.cs" t="Include" />
+          <e p="TimeManager.cs" t="Include" />
         </e>
       </e>
       <e p="KickOffJam.sln" t="IncludeFlat" />
