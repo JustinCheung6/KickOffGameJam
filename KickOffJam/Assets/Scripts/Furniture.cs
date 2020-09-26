@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Furniture : MonoBehaviour
-{    
+{
+    private SpriteRenderer sprite = null;
+
     [SerializeField] private ProgressManager.Scenarios id;
     private bool inRange = false;
 
@@ -13,6 +15,11 @@ public class Furniture : MonoBehaviour
     [Tooltip("How long does this event last for? (starting at timeFrame)")]
     [SerializeField] private int duration = 1;
 
+    private void Start()
+    {
+        if (GetComponent<SpriteRenderer>() != null)
+            sprite = GetComponent<SpriteRenderer>();
+    }
     private void Update()
     {
         if(Input.GetButtonDown("Interact") && inRange && !ProgressManager.singleton.InDialogue && 
@@ -20,17 +27,17 @@ public class Furniture : MonoBehaviour
             ProgressManager.singleton.Activate(id);
 
         if (TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
-            gameObject.SetActive(true);
+            sprite.enabled = true;
         else
-            gameObject.SetActive(false);
+            sprite.enabled = false;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D col)
     {
         inRange = true;
 
     }
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D col)
     {
         inRange = false;
     }

@@ -49,15 +49,15 @@ public class ProgressManager : MonoBehaviour
 
     private void Update()
     {
-        if(FC.GetIntegerVariable("Rewards") != 0)
+        if(FC.GetIntegerVariable("rewards") != 0)
         {
-            if (FC.GetIntegerVariable("Rewards") == 1)
+            if (FC.GetIntegerVariable("rewards") == 1)
                 inventory = (Items)FC.GetIntegerVariable("ItemID");
-            else if (FC.GetIntegerVariable("Rewards") == 2)
+            else if (FC.GetIntegerVariable("rewards") == 2)
                 Win();
             else
             {
-                FC.SetIntegerVariable("Rewards", 0);
+                FC.SetIntegerVariable("rewards", 0);
                 FC.SetIntegerVariable("ItemID", 0);
             }
         }
@@ -69,11 +69,10 @@ public class ProgressManager : MonoBehaviour
             return;
 
         events.Add(s);
-        /*
-        //Delete all commands in Dialogue Box for quick reset
-        foreach (Command c in interact.CommandList)
-            Destroy(c);
-        */
+
+        //Reset variable names
+        blockName = "";
+        itemID = -1;
 
         if (events.Count == 1)
             SetDialogue(events[0]);
@@ -82,8 +81,11 @@ public class ProgressManager : MonoBehaviour
         else if (events.Count == 3)
             SetDialogue(events[0], events[1], events[2]);
 
-        FC.SetIntegerVariable("ItemID", itemID);
-        FC.ExecuteBlock(blockName);
+        if(blockName != "" && itemID != -1)
+        {
+            FC.SetIntegerVariable("ItemID", itemID);
+            FC.ExecuteBlock(blockName);
+        }
     }
 
     //Set dialogue for beginning statements
