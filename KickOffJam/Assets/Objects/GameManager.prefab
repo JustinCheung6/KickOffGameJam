@@ -268,8 +268,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 5855250705644806535}
-  selectedCommands: []
+  - {fileID: 750854727082457251}
+  selectedCommands:
+  - {fileID: 2614051703307872039}
   variables:
   - {fileID: 3237228150692464138}
   - {fileID: 3237228150692464131}
@@ -4651,13 +4652,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodeRect:
     serializedVersion: 2
-    x: 517.0404
-    y: 100.02378
+    x: 518.0404
+    y: 10.023781
     width: 119
     height: 40
   tint: {r: 1, g: 1, b: 1, a: 1}
   useCustomTint: 0
-  itemId: 80
+  itemId: 104
   blockName: FishRemove
   description: 
   eventHandler: {fileID: 0}
@@ -4835,7 +4836,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 98
   indentLevel: 0
-  storyText: The goldfish leaps out of your arrms, struggling to find a breath of
+  storyText: The goldfish leaps out of your arms, struggling to find a breath of
     water.
   description: 
   character: {fileID: 0}
