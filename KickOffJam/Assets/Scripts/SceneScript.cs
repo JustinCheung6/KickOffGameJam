@@ -5,18 +5,14 @@ using UnityEngine.SceneManagement;
 public class SceneScript : MonoBehaviour
 {
     private bool gamePaused = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private GameObject pauseMenu = null;
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("Escape"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            gamePaused = true;
+            gamePaused = !gamePaused;
         }
 
         if (gamePaused)
@@ -42,14 +38,16 @@ public class SceneScript : MonoBehaviour
     public void pauseGame()
     {
         Time.timeScale = 0f;
-        gameObject.SetActive(true);
+        if (pauseMenu != null)
+            pauseMenu.SetActive(true);
         gamePaused = true;
     }
 
     public void resumeGame()
     {
         Time.timeScale = 1f;
-        gameObject.SetActive(false);
+        if(pauseMenu != null)
+            pauseMenu.SetActive(false);
         gamePaused = false;
     }
 
