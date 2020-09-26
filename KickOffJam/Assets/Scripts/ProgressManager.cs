@@ -98,7 +98,7 @@ public class ProgressManager : MonoBehaviour
         }
             
     }
-    //Set dialogue for beginning statements
+    //Set dialogue for 2nd stage statements
     private void SetDialogue(Scenarios s1, Scenarios s2)
     {
         // 2.4 (Leaky Ceiling, Couch)
@@ -108,7 +108,7 @@ public class ProgressManager : MonoBehaviour
             itemID = (int)Items.cupFish;
         }
     }
-    //Set dialogue for beginning statements
+    //Set dialogue for final statements
     private void SetDialogue(Scenarios s1, Scenarios s2, Scenarios s3)
     {
         //2.4.12 (Leaky Ceiling, Couch, Window)
@@ -118,9 +118,29 @@ public class ProgressManager : MonoBehaviour
             itemID = 0;
         }
     }
-    
+
+    //Set dialogue for beginning statements
+    private void SetDialogue(Items i)
+    {
+        blockName = "";
+
+        if(i == Items.cupFish)
+        {
+            blockName = "CupFishRemove";
+        }
+        else if(i == Items.fish)
+        {
+            blockName = "FishRemove";
+        }
+
+        if (blockName != "")
+            FC.ExecuteBlock(blockName);
+    }
+
+
     public void ClearProgress()
     {
+        SetDialogue(inventory);
         events = new List<Scenarios>();
         inventory = Items.nothing;
 }
