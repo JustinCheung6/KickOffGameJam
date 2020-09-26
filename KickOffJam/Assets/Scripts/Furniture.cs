@@ -3,28 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Furniture : MonoBehaviour
-{
-    private static TimeManager timeSingleton;
-    private static ProgressManager progressSingleton;
-    
+{    
     [SerializeField] private ProgressManager.Scenarios id;
+    private bool inRange = false;
+
 
     [Tooltip("Time when you can activate this furnature")]
     [SerializeField] private int timeFrame = -1;
     [Tooltip("How long does this event last for? (starting at timeFrame)")]
     [SerializeField] private int duration = 1;
 
-    private void Start()
+    private void Update()
     {
-        if (timeSingleton == null)
-            timeSingleton = GetComponent<TimeManager>();
-        if (progressSingleton == null)
-            progressSingleton = GetComponent<ProgressManager>();
+        if(Input.GetButtonDown("Interact") && inRange && !ProgressManager.singleton.InDialogue)
+            ProgressManager.singleton.Activate(id);
     }
 
-    virtual protected void Activate()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
-    }
+        inRange = true;
 
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        inRange = false;
+    }
 }
