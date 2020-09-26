@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Fungus;
+using UnityEngine.SceneManagement;
 
 public class ProgressManager : MonoBehaviour
 {
@@ -44,6 +45,22 @@ public class ProgressManager : MonoBehaviour
     {
         if (ProgressManager.singleton == null)
             ProgressManager.singleton = this;
+    }
+
+    private void Update()
+    {
+        if(FC.GetIntegerVariable("Rewards") != 0)
+        {
+            if (FC.GetIntegerVariable("Rewards") == 1)
+                inventory = (Items)FC.GetIntegerVariable("ItemID");
+            else if (FC.GetIntegerVariable("Rewards") == 2)
+                Win();
+            else
+            {
+                FC.SetIntegerVariable("Rewards", 0);
+                FC.SetIntegerVariable("ItemID", 0);
+            }
+        }
     }
 
     public void Activate(Scenarios s)
@@ -99,5 +116,15 @@ public class ProgressManager : MonoBehaviour
             blockName = "CeilingCouchWindow";
             itemID = 0;
         }
+    }
+    
+    public void ClearProgress()
+    {
+        events = new List<Scenarios>();
+        inventory = Items.nothing;
+}
+    private void Win()
+    {
+        SceneManager.LoadScene(0);
     }
 }

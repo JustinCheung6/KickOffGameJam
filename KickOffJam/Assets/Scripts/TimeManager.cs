@@ -29,6 +29,7 @@ public class TimeManager : MonoBehaviour
 
     public void RestartDay()
     {
+        ProgressManager.singleton.ClearProgress();
         time = 0;
     }
 }

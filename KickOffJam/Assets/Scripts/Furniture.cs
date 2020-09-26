@@ -15,8 +15,14 @@ public class Furniture : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Interact") && inRange && !ProgressManager.singleton.InDialogue)
+        if(Input.GetButtonDown("Interact") && inRange && !ProgressManager.singleton.InDialogue && 
+        TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
             ProgressManager.singleton.Activate(id);
+
+        if (TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
+            gameObject.SetActive(true);
+        else
+            gameObject.SetActive(false);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
