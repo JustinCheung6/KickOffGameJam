@@ -43,8 +43,7 @@ public class ProgressManager : MonoBehaviour
 
     private void Start()
     {
-        if (ProgressManager.singleton == null)
-            ProgressManager.singleton = this;
+        ProgressManager.singleton = this;
     }
 
     private void Update()

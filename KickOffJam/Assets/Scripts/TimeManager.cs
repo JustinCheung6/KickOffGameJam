@@ -17,8 +17,7 @@ public class TimeManager : MonoBehaviour
 
     private void Start()
     {
-        if (TimeManager.singleton == null)
-            TimeManager.singleton = this;
+        TimeManager.singleton = this;
 
         FC = GetComponent<Flowchart>();
     }
