@@ -1040,6 +1040,7 @@
           <e p="Furniture.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="ProgressManager.cs" t="Include" />
+          <e p="SceneScript.cs" t="Include" />
           <e p="TimeManager.cs" t="Include" />
         </e>
       </e>
