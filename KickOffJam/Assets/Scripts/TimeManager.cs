@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class TimeManager : MonoBehaviour
 
     [SerializeField] private bool paused = false;
     [SerializeField] private float time = 0f;
+    [SerializeField] private Text timerText = null; 
 
     public float GetTime { get => time; }
 
@@ -20,7 +22,11 @@ public class TimeManager : MonoBehaviour
     private void Update()
     {
         if (!paused)
+        {
             time += Time.deltaTime;
+            if (timerText != null)
+                timerText.text = "Time: " + (int)time;
+        }
 
         if (time >= 60f)
             RestartDay();
