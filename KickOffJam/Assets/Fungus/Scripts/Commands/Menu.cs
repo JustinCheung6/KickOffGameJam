@@ -140,8 +140,12 @@ namespace Fungus
             base.RefreshVariableCache();
 
             var f = GetFlowchart();
-
-            f.DetermineSubstituteVariables(text, referencedVariables);
+            try
+            {
+                f.DetermineSubstituteVariables(text, referencedVariables);
+            }
+            catch { }
+            
         }
 #endif
         #endregion Editor caches
