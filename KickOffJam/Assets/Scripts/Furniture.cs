@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
+    /*
     private SpriteRenderer sprite = null;
 
-    [SerializeField] private ProgressManager.Scenarios id;
+    [SerializeField] private GProgManager.Scenarios id;
     private bool inRange = false;
 
 
@@ -22,9 +23,9 @@ public class Furniture : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetButtonDown("Interact") && inRange && !ProgressManager.singleton.InDialogue && 
+        if(Input.GetButtonDown("Interact") && inRange && !GProgManager.singleton.InDialogue && 
         TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
-            ProgressManager.singleton.Activate(id);
+            GProgManager.singleton.Activate(id);
 
         if (TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
             sprite.enabled = true;
@@ -41,4 +42,5 @@ public class Furniture : MonoBehaviour
     {
         inRange = false;
     }
+    */
 }

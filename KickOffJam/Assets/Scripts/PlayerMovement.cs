@@ -2,25 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Controls player movement
+//Player movement is stopped when FungusChart has a dialogue running or if the game is paused (WIP)
 public class PlayerMovement : MonoBehaviour
 {
-    //public GameObject player;
-    public int moveSpeed = 1;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private float moveSpeed = 1;
+
+
+    private void Update()
     {
-        
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (!TimeManager.singleton.Paused)
+        //Stop movement if FungusChart has dialogue running
+        if (FungusChart.isRunningDialogue)
         {
-            //Moves Forward and back along y axis                           //Up/Down
-            transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * moveSpeed);
-            //Moves Left and right along x Axis                               //Left/Right
-            transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
+            return;
         }
+        if(PauseMenuManager.I != null)
+        {
+            if (PauseMenuManager.I.GamePaused)
+                return;
+        }
+            
+
+        //Moves Forward and back along y axis                           //Up/Down
+        transform.Translate(Vector3.up * Time.deltaTime * Input.GetAxis("Vertical") * moveSpeed);
+        //Moves Left and right along x Axis                               //Left/Right
+        transform.Translate(Vector3.right * Time.deltaTime * Input.GetAxis("Horizontal") * moveSpeed);
     }
     
     
