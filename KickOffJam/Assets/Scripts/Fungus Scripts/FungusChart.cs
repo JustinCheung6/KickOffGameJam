@@ -15,6 +15,10 @@ public class FungusChart : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private FChartID id = FChartID.none;
 
+    [Header("Random Properties")]
+    [Tooltip("Size: how many random 'rolls' flowchart needs. Value: max value of random range (min value = 1)")]
+    [SerializeField] private int[] randDialogue;
+
     [Header("Object References")]
     [SerializeField] private Flowchart fungusFlowchart;
 
@@ -121,14 +125,13 @@ public class FungusChart : MonoBehaviour
     {
         //Setup flowchart to start running
         currentDialogue = this;
-        fungusFlowchart.SetBooleanVariable("Running", true);
+        SetupFungusVar();
+
         fungusFlowchart.enabled = true;
 
         StartCoroutine(WaitForDialogue());
-        
         return true;
     }
-
     private IEnumerator WaitForDialogue()
     {
         //Wait until Dialogue ends (determined by Running variable)
@@ -140,6 +143,38 @@ public class FungusChart : MonoBehaviour
         //Disable flowchart running
         fungusFlowchart.enabled = false;
         currentDialogue = null;
+    }
+
+    //Update variables in fungus flowchart
+    private void SetupFungusVar()
+    {
+        //Check if it's first run using TimeManager. 
+        if (TimeManager.I != null && fungusFlowchart.HasVariable("FirstRun"))
+            fungusFlowchart.SetBooleanVariable("FirstRun", TimeManager.I.IsFirstRun);
+
+        //Setup random variables
+        for (int i = 0; i < randDialogue.Length; i++)
+        {
+            string varName = $"Rand{i + 1}";
+
+            if (!fungusFlowchart.HasVariable(varName))
+            {
+                Debug.LogError($"Fungus Flowchart does not have matching randDialogue: {gameObject.name}, id: {id}");
+                continue;
+            }
+            if (randDialogue[i] < 2)
+            {
+                Debug.LogError($"randDialogue is too small at {i}: {gameObject.name}, id: {id}");
+                continue;
+            }
+
+            int randValue = Random.Range(1, randDialogue[i]);
+
+            fungusFlowchart.SetIntegerVariable(varName, randValue);
+        }
+
+        //Finish by updating Running
+        fungusFlowchart.SetBooleanVariable("Running", true);
     }
     #endregion
 

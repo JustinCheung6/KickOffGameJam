@@ -28,6 +28,16 @@ public class TimeManager : MonoBehaviour
     [Header("Object References")]
     [SerializeField] Text timerUI = null;
 
+
+    #region External Script Values (Getters/Setters)
+    //Used in FungusChart
+    public bool IsFirstRun
+    {
+        get => firstRun;
+    }
+
+    #endregion
+
     private void Awake()
     {
         //Warning Case: Object Reference
