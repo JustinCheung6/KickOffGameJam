@@ -1106,6 +1106,28 @@ Transform:
   m_Father: {fileID: 1420631283}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &483045095 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8429654110448538791, guid: 520071aae37fb4a41aae552008dda365,
+    type: 3}
+  m_PrefabInstance: {fileID: 667985909}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &483045096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483045095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d9ca02facc39c64eba9c21557559848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstRun: 1
+  doorKey: 1
+  fish: -1
+  cupOfWater: -1
 --- !u!1001 &520683357
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1702,12 +1724,12 @@ PrefabInstance:
     - target: {fileID: 8429654110374233754, guid: 520071aae37fb4a41aae552008dda365,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.7182664
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8429654110374233754, guid: 520071aae37fb4a41aae552008dda365,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0000012161887
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8429654110448538791, guid: 520071aae37fb4a41aae552008dda365,
         type: 3}
@@ -2843,7 +2865,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 2145359456}
   m_Father: {fileID: 1792860059}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2919,7 +2942,7 @@ MonoBehaviour:
   scrollPos: {x: 464.0567, y: 105.06185}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 400
+  blockViewHeight: 947
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -3001,6 +3024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 0
   randDialogue: 0b000000
+  dialogueChoices:
+  - {fileID: 2145359457}
   fungusFlowchart: {fileID: 1067970299}
 --- !u!114 &1067970304
 MonoBehaviour:
@@ -3167,8 +3192,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scope: 1
-  key: FirstRun
-  value: 0
+  key: Choice1
+  value: 1
 --- !u!114 &1067970306
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -4198,7 +4223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 25
   indentLevel: 1
-  storyText: I wonder what's in the water.
+  storyText: I wonder what's in the puddle.
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -4306,7 +4331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemId: 21
   indentLevel: 1
-  storyText: And I take a deep breath and get real
+  storyText: And I take a deep breath and get real...
   description: 
   character: {fileID: 0}
   portrait: {fileID: 0}
@@ -7908,6 +7933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd858fff1c95f14b92c277350046b20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerProgress: {fileID: 483045096}
 --- !u!114 &1420631286
 MonoBehaviour:
   m_ObjectHideFlags: 2
@@ -11395,6 +11421,54 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f375ada5e186cbe4ab5eae613c83e959, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2145359455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2145359456}
+  - component: {fileID: 2145359457}
+  m_Layer: 0
+  m_Name: Choice1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2145359456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145359455}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1067970297}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2145359457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145359455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e60eed24ce1fa1b4ea51c46263ff501a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstRun: 0
+  doorKey: -1
+  fish: -1
+  cupOfWater: -1
+  notes: Used for first day dialogue
 --- !u!114 &37168680514952893
 MonoBehaviour:
   m_ObjectHideFlags: 2

@@ -23,7 +23,7 @@ public class TimeManager : MonoBehaviour
     //Properties
     private bool isRunning = false;
     private float timer = 0f;
-    private bool firstRun = true;
+    private bool firstRun = false;
 
     [Header("Object References")]
     [SerializeField] Text timerUI = null;
@@ -50,7 +50,6 @@ public class TimeManager : MonoBehaviour
         else if (instance != this)
             Debug.LogError($"Found multiple instances of TimeManager:\nCurrent instance: {instance.gameObject.name},\nThis instance: {gameObject.name}");
 
-        firstRun = true;
         ResetTimer();
     }
 

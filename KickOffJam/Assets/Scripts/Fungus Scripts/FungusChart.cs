@@ -15,9 +15,11 @@ public class FungusChart : MonoBehaviour
     [Header("Properties")]
     [SerializeField] private FChartID id = FChartID.none;
 
-    [Header("Random Properties")]
-    [Tooltip("Size: how many random 'rolls' flowchart needs. Value: max value of random range (min value = 1)")]
+    [Header("Dialogue Properties")]
+    [Tooltip("Value: Random Range (Range: 1-value [both inclusive]) Size: # of random dialogues. ")]
     [SerializeField] private int[] randDialogue;
+    [Tooltip("Value: Condition for special dialogue. Size: # of special dialogues")]
+    [SerializeField] private DialogueProgChecker[] dialogueChoices;
 
     [Header("Object References")]
     [SerializeField] private Flowchart fungusFlowchart;
@@ -102,7 +104,6 @@ public class FungusChart : MonoBehaviour
             return false;
         }
             
-
         //Error Case: fungus chart does not exist
         if (fungusDialogues[fungusChart] == null)
         {
@@ -148,9 +149,24 @@ public class FungusChart : MonoBehaviour
     //Update variables in fungus flowchart
     private void SetupFungusVar()
     {
-        //Check if it's first run using TimeManager. 
-        if (TimeManager.I != null && fungusFlowchart.HasVariable("FirstRun"))
-            fungusFlowchart.SetBooleanVariable("FirstRun", TimeManager.I.IsFirstRun);
+        //Setup choice variables
+        for(int c = 0; c < dialogueChoices.Length; c++)
+        {
+            string varName = $"Choice{c + 1}";
+            if (!fungusFlowchart.HasVariable(varName))
+            {
+                Debug.LogError($"Fungus Flowchart does not have matching dialogueChoices: {gameObject.name}, id: {id}");
+                continue;
+            }
+            if (dialogueChoices[c] == null)
+            {
+                Debug.LogError($"Dialogue choices is null at index {c}: {gameObject.name}, id: {id}");
+                continue;
+            }
+
+            bool meetReq = dialogueChoices[c].CheckProgress(PlayerProgTracker.I);
+            fungusFlowchart.SetBooleanVariable(varName, meetReq);
+        }
 
         //Setup random variables
         for (int i = 0; i < randDialogue.Length; i++)

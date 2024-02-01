@@ -21,6 +21,9 @@ public class GProgManager : MonoBehaviour
         }
     }
 
+    [Header("Object References")]
+    [SerializeField] private PlayerProgTracker playerProgress = null;
+
     private void Awake()
     {
         //Setup singleton
@@ -39,13 +42,15 @@ public class GProgManager : MonoBehaviour
     #region Game Event Methods
     private IEnumerator StartGame()
     {
+        playerProgress.ResetProgress(TimeManager.I.IsFirstRun);
+
        //Wait until opening dialogue is ready
        while (!FungusChart.HasFungusChart(FChartID.OpeningDialogue))
         {
             yield return new WaitForEndOfFrame();
         }
        //Run Opening dialogue
-       if (!FungusChart.StartDialogue(FChartID.OpeningDialogue))
+       if (!FungusChart.StartDialogue(FChartID.OpeningDialogue, playerProgress))
         {
             Debug.LogError("OpeningDialogue failed");
             yield break;
