@@ -7,10 +7,21 @@ public class ProgressList : MonoBehaviour
 {
     [Header("Progression")]
     [SerializeField] protected N_bool firstRun = N_bool.Null;
-    [SerializeField] protected N_keyItem doorKey = N_keyItem.Null;
-    [SerializeField] protected N_keyItem fish = N_keyItem.Null;
-    [SerializeField] protected N_keyItem cupOfWater = N_keyItem.Null;
+    [SerializeField] protected N_bool spatCouchEvent = N_bool.Null;
 
+    [SerializeField] protected N_keyItem doorKey = N_keyItem.Null;
+    [SerializeField] protected N_fishItem fish = N_fishItem.Null;
+    [SerializeField] protected N_keyItem cupOfWater = N_keyItem.Null;
+}
+
+//Used to get references of items
+public enum ProgItems
+{
+    firstRun,
+    spatCouchEvent, 
+    doorKey, 
+    fish, 
+    cupOfWater,
 }
 
 #region enumerations for inspector
@@ -29,6 +40,17 @@ public enum N_keyItem
     HasItem = 0,
     NotHave = 1,
     LostItem = 2,
+
+    Null = -1,
+}
+
+//Custom nullable 4 state variable (5 states)
+public enum N_fishItem
+{
+    HasItem = 0,
+    NotHave = 1,
+    LostItem = 2,
+    InCouch = 3,
 
     Null = -1,
 }

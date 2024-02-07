@@ -4,43 +4,33 @@ using UnityEngine;
 
 public class Furniture : MonoBehaviour
 {
-    /*
-    private SpriteRenderer sprite = null;
-
-    [SerializeField] private GProgManager.Scenarios id;
-    private bool inRange = false;
+    [Header("Object Reference")]
+    [SerializeField] private FChartID furnitureFCID = FChartID.none;
+    [SerializeField] private Transform centerPos = null;
 
 
-    [Tooltip("Time when you can activate this furnature")]
-    [SerializeField] private int timeFrame = -1;
-    [Tooltip("How long does this event last for? (starting at timeFrame)")]
-    [SerializeField] private int duration = 1;
-
-    private void Start()
+    #region Used in External Scripts (Getters/Setters)
+    public Vector2? GetCenterPos()
     {
-        if (GetComponent<SpriteRenderer>() != null)
-            sprite = GetComponent<SpriteRenderer>();
-    }
-    private void Update()
-    {
-        if(Input.GetButtonDown("Interact") && inRange && !GProgManager.singleton.InDialogue && 
-        TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
-            GProgManager.singleton.Activate(id);
+        if (centerPos == null)
+            return null;
 
-        if (TimeManager.singleton.GetTime >= timeFrame && TimeManager.singleton.GetTime <= timeFrame + duration)
-            sprite.enabled = true;
-        else
-            sprite.enabled = false;
+        Vector2 p = centerPos.position;
+        return p;
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        inRange = true;
+    #endregion
 
-    }
-    private void OnTriggerExit2D(Collider2D col)
+    //Start interaction w/ player (called by Player)
+    public void Interact()
     {
-        inRange = false;
+        if(furnitureFCID == FChartID.none)
+        {
+            Debug.LogError("Furniture doesn't have an FChartID: " + gameObject.name);
+            return;
+        }
+
+        Debug.Log("Started Dialogue: " + furnitureFCID);
+        FungusChart.StartDialogue(furnitureFCID);
     }
-    */
 }

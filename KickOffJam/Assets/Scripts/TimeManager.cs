@@ -21,9 +21,9 @@ public class TimeManager : MonoBehaviour
     }
 
     //Properties
+    private static bool firstRun = true;
     private bool isRunning = false;
     private float timer = 0f;
-    private bool firstRun = false;
 
     [Header("Object References")]
     [SerializeField] Text timerUI = null;
@@ -53,7 +53,7 @@ public class TimeManager : MonoBehaviour
         ResetTimer();
     }
 
-    public void Update()
+    public void LateUpdate()
     {
         if (!isRunning)
         {
@@ -70,6 +70,8 @@ public class TimeManager : MonoBehaviour
         }
 
         timer += Time.deltaTime;
+
+        
     }
 
     //Have timer start incrementing

@@ -30,24 +30,51 @@ public class PlayerProgTracker : ProgressList
             return instance;
         }
     }
-    
+
     #region External Script Values (Getters/Setters)
-    //Used in DialogueProgChecker
+    //Used in DialogueProgChecker & DialogueProgUpdater
     public N_bool IsFirstRun
     {
         get => firstRun;
     }
+    public N_bool SpatCouchEvent
+    {
+        get => spatCouchEvent;
+    }
+
     public N_keyItem HasDoorKey
     {
         get => doorKey;
     }
-    public N_keyItem HasFish
+    public N_fishItem HasFish
     {
         get => fish;
     }
     public N_keyItem HasWaterCup
     {
         get => cupOfWater;
+    }
+
+    //Used in DialogueProgUpdater
+    public void UpdateFirstRun(N_bool b)
+    {
+        firstRun = b;
+    }
+    public void UpdateSpatCouchEvent(N_bool b)
+    {
+        spatCouchEvent = b;
+    }
+    public void UpdateDoorKey(N_keyItem k)
+    {
+        doorKey = k;
+    }
+    public void UpdateFish(N_fishItem k)
+    {
+        fish = k;
+    }
+    public void UpdateWaterCup(N_keyItem k)
+    {
+        cupOfWater = k;
     }
     #endregion
 
@@ -71,7 +98,7 @@ public class PlayerProgTracker : ProgressList
     {
         firstRun = (firstDay) ? N_bool.True : N_bool.False;
         doorKey = N_keyItem.NotHave;
-        fish = N_keyItem.NotHave;
+        fish = N_fishItem.NotHave;
         cupOfWater = N_keyItem.NotHave;
     }
 
@@ -79,7 +106,7 @@ public class PlayerProgTracker : ProgressList
     private bool CheckNull()
     {
         //Make sure none of the Player ProgressList is null
-        if (firstRun == N_bool.Null || doorKey == N_keyItem.Null || fish == N_keyItem.Null || cupOfWater == N_keyItem.Null)
+        if (firstRun == N_bool.Null || doorKey == N_keyItem.Null || fish == N_fishItem.Null || cupOfWater == N_keyItem.Null)
         {
             Debug.LogError("PlayerProgTracker has Null values");
             return true;

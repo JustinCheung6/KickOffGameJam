@@ -19,7 +19,9 @@ public class FungusChart : MonoBehaviour
     [Tooltip("Value: Random Range (Range: 1-value [both inclusive]) Size: # of random dialogues. ")]
     [SerializeField] private int[] randDialogue;
     [Tooltip("Value: Condition for special dialogue. Size: # of special dialogues")]
-    [SerializeField] private DialogueProgChecker[] dialogueChoices;
+    [SerializeField] private DialogueProgChecker[] dialogueConditions;
+    [Tooltip("Value: Result of dialogue choice. Size: # of different outcomes")]
+    [SerializeField] private DialogueProgUpdater[] dialogueResults;
 
     [Header("Object References")]
     [SerializeField] private Flowchart fungusFlowchart;
@@ -94,7 +96,7 @@ public class FungusChart : MonoBehaviour
     }
 
     #region static Methods
-    public static bool StartDialogue(FChartID fungusChart, bool overrideDialogue = false)
+    public static bool StartDialogue(FChartID fungusChart)
     {
         #region Error Check
         //Error Case: fungus chart is none
@@ -128,43 +130,31 @@ public class FungusChart : MonoBehaviour
         currentDialogue = this;
         SetupFungusVar();
 
-        fungusFlowchart.enabled = true;
+        fungusFlowchart.gameObject.SetActive(true);
 
         StartCoroutine(WaitForDialogue());
         return true;
     }
-    private IEnumerator WaitForDialogue()
-    {
-        //Wait until Dialogue ends (determined by Running variable)
-        while (fungusFlowchart.GetBooleanVariable("Running"))
-        {
-            yield return new WaitForEndOfFrame();
-        }
-
-        //Disable flowchart running
-        fungusFlowchart.enabled = false;
-        currentDialogue = null;
-    }
-
     //Update variables in fungus flowchart
     private void SetupFungusVar()
     {
+
         //Setup choice variables
-        for(int c = 0; c < dialogueChoices.Length; c++)
+        for (int c = 0; c < dialogueConditions.Length; c++)
         {
-            string varName = $"Choice{c + 1}";
+            string varName = $"Condition{c + 1}";
             if (!fungusFlowchart.HasVariable(varName))
             {
-                Debug.LogError($"Fungus Flowchart does not have matching dialogueChoices: {gameObject.name}, id: {id}");
+                Debug.LogError($"Fungus Flowchart does not have matching dialogueConditions: {gameObject.name}, id: {id}");
                 continue;
             }
-            if (dialogueChoices[c] == null)
+            if (dialogueConditions[c] == null)
             {
-                Debug.LogError($"Dialogue choices is null at index {c}: {gameObject.name}, id: {id}");
+                Debug.LogError($"Dialogue condition is null at index {c}: {gameObject.name}, id: {id}");
                 continue;
             }
 
-            bool meetReq = dialogueChoices[c].CheckProgress(PlayerProgTracker.I);
+            bool meetReq = dialogueConditions[c].CheckProgress(PlayerProgTracker.I);
             fungusFlowchart.SetBooleanVariable(varName, meetReq);
         }
 
@@ -189,9 +179,65 @@ public class FungusChart : MonoBehaviour
             fungusFlowchart.SetIntegerVariable(varName, randValue);
         }
 
+        //Setup results variables (make them all false)
+        for (int i = 0; i < dialogueResults.Length; i++)
+        {
+            string varName = $"Result{i + 1}";
+
+            if (!fungusFlowchart.HasVariable(varName))
+            {
+                Debug.LogError($"Fungus Flowchart does not have matching dialogueResults: {gameObject.name}, id: {id}");
+                continue;
+            }
+
+            fungusFlowchart.SetBooleanVariable(varName, false);
+        }
+
         //Finish by updating Running
         fungusFlowchart.SetBooleanVariable("Running", true);
     }
+    private IEnumerator WaitForDialogue()
+    {
+        //Wait until Dialogue ends (determined by Running variable)
+        while (fungusFlowchart.GetBooleanVariable("Running"))
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Disable flowchart running
+        fungusFlowchart.gameObject.SetActive(false);
+        currentDialogue = null;
+
+        UpdatePlayerProg();
+    }
+    private void UpdatePlayerProg()
+    {
+        if (dialogueResults.Length == 0)
+            return;
+        if (PlayerProgTracker.I == null)
+        {
+            Debug.LogError("PlayerProgTracker not available");
+            return;
+        }
+
+        //Update PlayerProgTracker w/ Results
+        for (int i = 0; i < dialogueResults.Length; i++)
+        {
+            string varName = $"Result{i + 1}";
+
+            //Error Check
+            if (!fungusFlowchart.HasVariable(varName))
+            {
+                Debug.LogError($"Fungus Flowchart does not have matching dialogueResults: {gameObject.name}, id: {id}");
+                continue;
+            }
+
+            if (fungusFlowchart.GetBooleanVariable(varName))
+                dialogueResults[i].UpdateProgress(PlayerProgTracker.I);
+
+        }
+    }
+    
     #endregion
 
 }
@@ -200,5 +246,8 @@ public class FungusChart : MonoBehaviour
 public enum FChartID
 {
     OpeningDialogue,
+    LeakyCeiling,
+    MustyCouch,
+
     none = -1,
 }
