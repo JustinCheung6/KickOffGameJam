@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DialogueProgUpdater : DialogueProgress
 {
-    [Header("Not Important to Code")]
-    [SerializeField] private string notes = "";
-
 
     /// <summary>Changes values of PlayerProg Tracker (updates their progress)
     /// (if Updater value is null, it's ignored)
@@ -25,8 +22,12 @@ public class DialogueProgUpdater : DialogueProgress
                         p.UpdateFirstRun(firstRun);
                     break;
                 case ProgItems.spatCouchEvent:
-                    if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
+                    if (spatCouchEvent != N_event.Null && spatCouchEvent != p.SpatCouchEvent)
                         p.UpdateSpatCouchEvent(spatCouchEvent);
+                    break;
+                case ProgItems.sceneryEvent:
+                    if (sceneryEvent != N_eventDialogue.Null && sceneryEvent != p.SceneryEvent)
+                        p.UpdateSceneryEvent(sceneryEvent);
                     break;
                 case ProgItems.doorKey:
                     if (doorKey != N_keyItem.Null && doorKey != p.HasDoorKey)

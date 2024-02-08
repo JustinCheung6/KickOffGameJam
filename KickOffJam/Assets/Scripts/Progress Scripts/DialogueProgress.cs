@@ -14,7 +14,7 @@ public class DialogueProgress : ProgressList
 
         if(firstRun != N_bool.Null)
             progItemValues.Add(ProgItems.firstRun, firstRun.ToString());
-        if(spatCouchEvent != N_bool.Null)
+        if(spatCouchEvent != N_event.Null)
             progItemValues.Add(ProgItems.spatCouchEvent, spatCouchEvent.ToString());
         if(doorKey != N_keyItem.Null)
             progItemValues.Add(ProgItems.doorKey, doorKey.ToString());
@@ -22,6 +22,8 @@ public class DialogueProgress : ProgressList
             progItemValues.Add(ProgItems.fish, fish.ToString());
         if(cupOfWater != N_keyItem.Null)
             progItemValues.Add(ProgItems.cupOfWater, cupOfWater.ToString());
+        if (sceneryEvent != N_eventDialogue.Null)
+            progItemValues.Add(ProgItems.sceneryEvent, sceneryEvent.ToString());
     }
 
 
@@ -33,6 +35,7 @@ public class DialogueProgress : ProgressList
     }
 
     //Updates progItemValues if the variables are changed in the inspector (during playmode only
+
 #if UNITY_EDITOR
 
     private void OnValidate()

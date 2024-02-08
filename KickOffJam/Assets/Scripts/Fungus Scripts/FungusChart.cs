@@ -236,6 +236,8 @@ public class FungusChart : MonoBehaviour
                 dialogueResults[i].UpdateProgress(PlayerProgTracker.I);
 
         }
+
+        Debug.Log("Finished Dialogue: " + id.ToString());
     }
     
     #endregion
@@ -248,6 +250,7 @@ public enum FChartID
     OpeningDialogue,
     LeakyCeiling,
     MustyCouch,
+    Window,
 
     none = -1,
 }

@@ -7,7 +7,9 @@ public class ProgressList : MonoBehaviour
 {
     [Header("Progression")]
     [SerializeField] protected N_bool firstRun = N_bool.Null;
-    [SerializeField] protected N_bool spatCouchEvent = N_bool.Null;
+
+    [SerializeField] protected N_event spatCouchEvent = N_event.Null;
+    [SerializeField] protected N_eventDialogue sceneryEvent = N_eventDialogue.Null;
 
     [SerializeField] protected N_keyItem doorKey = N_keyItem.Null;
     [SerializeField] protected N_fishItem fish = N_fishItem.Null;
@@ -18,13 +20,35 @@ public class ProgressList : MonoBehaviour
 public enum ProgItems
 {
     firstRun,
-    spatCouchEvent, 
+    spatCouchEvent,
+    sceneryEvent,
     doorKey, 
     fish, 
     cupOfWater,
 }
 
 #region enumerations for inspector
+//Nullable event trigger (2 states)
+public enum N_event
+{
+    True = 0,
+
+    Null = -1,
+}
+//Custom event triggers
+public enum N_eventDialogue
+{
+    Dialogue2nd, 
+    Dialogue3rd, 
+    Dialogue4th,
+    Dialogue5th,
+    Dialogue6th,
+
+    Finished,
+    Null = -1,
+}
+
+
 //Nullable boollean (3 states)
 public enum N_bool
 {

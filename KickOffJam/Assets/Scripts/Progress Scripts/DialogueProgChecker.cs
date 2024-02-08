@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class DialogueProgChecker : DialogueProgress
 {
-    [Header("Not Important to Code")]
-    [SerializeField] private string notes = "";
-
 
     /// <summary>Checks if player progress meets requirements of this checker
     /// (if Checker value is null, it's ignored)
@@ -24,7 +21,11 @@ public class DialogueProgChecker : DialogueProgress
                         return false;
                     break;
                 case ProgItems.spatCouchEvent:
-                    if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
+                    if (spatCouchEvent != N_event.Null && spatCouchEvent != p.SpatCouchEvent)
+                        return false;
+                    break;
+                case ProgItems.sceneryEvent:
+                    if (sceneryEvent != N_eventDialogue.Null && sceneryEvent != p.SceneryEvent)
                         return false;
                     break;
                 case ProgItems.doorKey:

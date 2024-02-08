@@ -37,9 +37,13 @@ public class PlayerProgTracker : ProgressList
     {
         get => firstRun;
     }
-    public N_bool SpatCouchEvent
+    public N_event SpatCouchEvent
     {
         get => spatCouchEvent;
+    }
+    public N_eventDialogue SceneryEvent
+    {
+        get => sceneryEvent;
     }
 
     public N_keyItem HasDoorKey
@@ -60,9 +64,13 @@ public class PlayerProgTracker : ProgressList
     {
         firstRun = b;
     }
-    public void UpdateSpatCouchEvent(N_bool b)
+    public void UpdateSpatCouchEvent(N_event e)
     {
-        spatCouchEvent = b;
+        spatCouchEvent = e;
+    }
+    public void UpdateSceneryEvent(N_eventDialogue e)
+    {
+        sceneryEvent = e;
     }
     public void UpdateDoorKey(N_keyItem k)
     {
@@ -97,6 +105,8 @@ public class PlayerProgTracker : ProgressList
     public void ResetProgress(bool firstDay)
     {
         firstRun = (firstDay) ? N_bool.True : N_bool.False;
+        spatCouchEvent = N_event.Null;
+        sceneryEvent = N_eventDialogue.Null;
         doorKey = N_keyItem.NotHave;
         fish = N_fishItem.NotHave;
         cupOfWater = N_keyItem.NotHave;
