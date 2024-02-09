@@ -12,9 +12,9 @@ public class DialogueProgress : ProgressList
     {
         progItemValues.Clear();
 
-        if(firstRun != N_bool.Null)
+        if(firstRun != N_firstDay.Null)
             progItemValues.Add(ProgItems.firstRun, firstRun.ToString());
-        if(spatCouchEvent != N_event.Null)
+        if(spatCouchEvent != N_bool.Null)
             progItemValues.Add(ProgItems.spatCouchEvent, spatCouchEvent.ToString());
         if(doorKey != N_keyItem.Null)
             progItemValues.Add(ProgItems.doorKey, doorKey.ToString());

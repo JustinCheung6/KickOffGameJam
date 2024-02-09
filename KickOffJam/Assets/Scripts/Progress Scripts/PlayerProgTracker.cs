@@ -33,11 +33,11 @@ public class PlayerProgTracker : ProgressList
 
     #region External Script Values (Getters/Setters)
     //Used in DialogueProgChecker & DialogueProgUpdater
-    public N_bool IsFirstRun
+    public N_firstDay IsFirstRun
     {
         get => firstRun;
     }
-    public N_event SpatCouchEvent
+    public N_bool SpatCouchEvent
     {
         get => spatCouchEvent;
     }
@@ -60,11 +60,11 @@ public class PlayerProgTracker : ProgressList
     }
 
     //Used in DialogueProgUpdater
-    public void UpdateFirstRun(N_bool b)
+    public void UpdateFirstRun(N_firstDay b)
     {
         firstRun = b;
     }
-    public void UpdateSpatCouchEvent(N_event e)
+    public void UpdateSpatCouchEvent(N_bool e)
     {
         spatCouchEvent = e;
     }
@@ -104,19 +104,26 @@ public class PlayerProgTracker : ProgressList
 
     public void ResetProgress(bool firstDay)
     {
-        firstRun = (firstDay) ? N_bool.True : N_bool.False;
-        spatCouchEvent = N_event.Null;
-        sceneryEvent = N_eventDialogue.Null;
+        firstRun = (firstDay) ? N_firstDay.FirstDay : (firstRun == N_firstDay.FirstDay) ? N_firstDay.SecondDay : N_firstDay.False;
+        spatCouchEvent = N_bool.False;
+        sceneryEvent = N_eventDialogue.Beginning;
         doorKey = N_keyItem.NotHave;
         fish = N_fishItem.NotHave;
         cupOfWater = N_keyItem.NotHave;
+    }
+
+
+    //Check if player has won
+    public bool CheckWin()
+    {
+        return (fish == N_fishItem.Chucked);
     }
 
     //True if there is a null value
     private bool CheckNull()
     {
         //Make sure none of the Player ProgressList is null
-        if (firstRun == N_bool.Null || doorKey == N_keyItem.Null || fish == N_fishItem.Null || cupOfWater == N_keyItem.Null)
+        if (firstRun == N_firstDay.Null || doorKey == N_keyItem.Null || fish == N_fishItem.Null || cupOfWater == N_keyItem.Null)
         {
             Debug.LogError("PlayerProgTracker has Null values");
             return true;

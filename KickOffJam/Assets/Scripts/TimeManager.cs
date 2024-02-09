@@ -23,7 +23,12 @@ public class TimeManager : MonoBehaviour
     //Properties
     private static bool firstRun = true;
     private bool isRunning = false;
+    private bool timeOut = false;
     private float timer = 0f;
+
+    [Header("Properties")]
+    [Tooltip("How much time will pass before the day resets")]
+    [SerializeField] private float maxTime = 60f;
 
     [Header("Object References")]
     [SerializeField] Text timerUI = null;
@@ -35,6 +40,18 @@ public class TimeManager : MonoBehaviour
     {
         get => firstRun;
     }
+
+    //Used in GProgManager
+    public bool TimedOut
+    {
+        get => timeOut;
+    }
+    //Used in PlayerMovement
+    public bool IsRunning
+    {
+        get => isRunning;
+    }
+
 
     #endregion
 
@@ -57,26 +74,36 @@ public class TimeManager : MonoBehaviour
     {
         if (!isRunning)
         {
-            if (timerUI != null)
-                timerUI.gameObject.SetActive(false);
             return;
         }
 
         //Update timerUI Display if available
-        if(timerUI != null && !firstRun) 
+        if(timerUI != null) 
         {
             timerUI.text = Mathf.FloorToInt(timer).ToString();
-            timerUI.gameObject.SetActive(true);
         }
 
         timer += Time.deltaTime;
 
+
+        //Check if time limit reached (reset day)
+        if(timer > maxTime)
+        {
+            timeOut = true;
+            firstRun = false;
+            ResetTimer();
+        }
         
     }
 
     //Have timer start incrementing
     public void StartTimer()
     {
+        Debug.Log("Starting Timer");
+
+        if (timerUI != null)
+            timerUI.gameObject.SetActive(true);
+        timeOut = false;
         isRunning = true;
     }
     //Reset timer value and stop it
@@ -84,5 +111,7 @@ public class TimeManager : MonoBehaviour
     {
         isRunning = false;
         timer = 0f;
+        if (timerUI != null)
+            timerUI.gameObject.SetActive(false);
     }
 }

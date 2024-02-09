@@ -17,11 +17,11 @@ public class DialogueProgChecker : DialogueProgress
             switch (item.Key)
             {
                 case ProgItems.firstRun:
-                    if (firstRun != N_bool.Null && firstRun != p.IsFirstRun)
+                    if (firstRun != N_firstDay.Null && firstRun != p.IsFirstRun)
                         return false;
                     break;
                 case ProgItems.spatCouchEvent:
-                    if (spatCouchEvent != N_event.Null && spatCouchEvent != p.SpatCouchEvent)
+                    if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
                         return false;
                     break;
                 case ProgItems.sceneryEvent:

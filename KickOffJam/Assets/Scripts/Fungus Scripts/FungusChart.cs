@@ -248,9 +248,11 @@ public class FungusChart : MonoBehaviour
 public enum FChartID
 {
     OpeningDialogue,
+    ResetDay,
     LeakyCeiling,
     MustyCouch,
     Window,
+    WinGame,
 
     none = -1,
 }

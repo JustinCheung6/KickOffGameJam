@@ -18,11 +18,11 @@ public class DialogueProgUpdater : DialogueProgress
             switch (item.Key)
             {
                 case ProgItems.firstRun:
-                    if (firstRun != N_bool.Null)
+                    if (firstRun != N_firstDay.Null)
                         p.UpdateFirstRun(firstRun);
                     break;
                 case ProgItems.spatCouchEvent:
-                    if (spatCouchEvent != N_event.Null && spatCouchEvent != p.SpatCouchEvent)
+                    if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
                         p.UpdateSpatCouchEvent(spatCouchEvent);
                     break;
                 case ProgItems.sceneryEvent:
