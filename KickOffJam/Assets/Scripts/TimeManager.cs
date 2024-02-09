@@ -21,7 +21,7 @@ public class TimeManager : MonoBehaviour
     }
 
     //Properties
-    private static bool firstRun = true;
+    private bool firstRun = true;
     private bool isRunning = false;
     private bool timeOut = false;
     private float timer = 0f;
@@ -67,6 +67,7 @@ public class TimeManager : MonoBehaviour
         else if (instance != this)
             Debug.LogError($"Found multiple instances of TimeManager:\nCurrent instance: {instance.gameObject.name},\nThis instance: {gameObject.name}");
 
+        firstRun = true;
         ResetTimer();
     }
 
