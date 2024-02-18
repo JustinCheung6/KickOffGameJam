@@ -107,6 +107,7 @@ public class TimeManager : MonoBehaviour
         timeOut = false;
         isRunning = true;
     }
+
     //Reset timer value and stop it
     public void ResetTimer()
     {

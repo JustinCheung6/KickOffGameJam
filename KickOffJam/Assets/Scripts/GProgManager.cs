@@ -23,6 +23,9 @@ public class GProgManager : MonoBehaviour
 
     [Header("Object References")]
     [SerializeField] private PlayerMovement playerMove = null;
+    //Win Screen
+    [SerializeField] private MovingColorChangingCoolScript winAnim = null;
+    [SerializeField] private RectTransform winScreen = null;
 
     private void Awake()
     {
@@ -45,40 +48,55 @@ public class GProgManager : MonoBehaviour
     private IEnumerator StartGame()
     {
         //Reset Player Progress
-        while(PlayerProgTracker.I == null) 
+        while (PlayerProgTracker.I == null)
         {
             yield return new WaitForEndOfFrame();
         }
 
         PlayerProgTracker.I.ResetProgress(TimeManager.I.IsFirstRun);
 
-       //Wait until opening dialogue is ready
-       while (!FungusChart.HasFungusChart(FChartID.OpeningDialogue))
+        //Wait until opening dialogue is ready
+        while (!FungusChart.HasFungusChart(FChartID.OpeningDialogue))
         {
             yield return new WaitForEndOfFrame();
         }
 
-        if(playerMove != null)
+        if (playerMove != null)
         {
             playerMove.ResetPlayerPos();
         }
 
-        //Wait Until game fades in
-        BlackoutUI.FadeOutBlack();
-        while (BlackoutUI.IsRunning)
+        if (TimeManager.I.IsFirstRun)
         {
-            yield return new WaitForEndOfFrame();
+            //Have different transition when  its first day
+            yield return new WaitForSeconds(0.5f);
+
+            if (!FungusChart.StartDialogue(FChartID.OpeningDialogue))
+            {
+                Debug.LogError("OpeningDialogue failed");
+                yield break;
+            }
+
+            yield return new WaitForSeconds(0.2f);
+            BlackoutUI.FadeOutBlack();
+        }
+        else
+        {
+            //Wait Until game fades in
+            BlackoutUI.FadeOutBlack();
+
+            //Run Opening dialogue
+            if (!FungusChart.StartDialogue(FChartID.OpeningDialogue))
+            {
+                Debug.LogError("OpeningDialogue failed");
+                yield break;
+            }
         }
 
-        //Run Opening dialogue
-        if (!FungusChart.StartDialogue(FChartID.OpeningDialogue))
-        {
-            Debug.LogError("OpeningDialogue failed");
-            yield break;
-        }
+        
 
         //Start timeMananger after opening dialogue finishes
-        while (FungusChart.isRunningDialogue)
+        while (FungusChart.isRunningDialogue || BlackoutUI.IsRunning)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -89,41 +107,66 @@ public class GProgManager : MonoBehaviour
     //Wait until Day Resets or Player Wins
     private IEnumerator WaitForNextState()
     {
+        //When one of these values change, the player wins or time is up
         while (!TimeManager.I.TimedOut && !PlayerProgTracker.I.CheckWin())
         {
             yield return new WaitForEndOfFrame();
         }
 
-        if(TimeManager.I.TimedOut)
-            StartCoroutine(ResetDay());
-        else if (PlayerProgTracker.I.CheckWin())
+        
+        if (PlayerProgTracker.I.CheckWin())
         {
             StartCoroutine(WinGame());
         }
+        else if (TimeManager.I.TimedOut)
+            StartCoroutine(ResetDay());
     }
 
-    //Game Win
+    //
     private IEnumerator WinGame()
     {
+        //Wait until Fungus finished its current dialogue
         while (FungusChart.isRunningDialogue)
         {
             yield return new WaitForEndOfFrame();
         }
 
+        //Start Chuckfish dialogue (to make sure timer does make the player lose
+        FungusChart.StartDialogue(FChartID.ChuckFish);
+        while (FungusChart.isRunningDialogue)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        //Start The finale dialogue
         BlackoutUI.FadeToBlack();
         FungusChart.StartDialogue(FChartID.WinGame);
+        //Stop Timer if still going
+        TimeManager.I.ResetTimer();
+
+        //Wait until win finishes
         while (FungusChart.isRunningDialogue || BlackoutUI.IsRunning)
         {
             yield return new WaitForEndOfFrame();
         }
 
+        yield return new WaitForSeconds(0.2f);
 
-        Debug.Log("YOU WIN");
+        //Start Win Game Screen
+        Debug.Log("GAME WON");
+        winAnim.enabled = true;
+        winScreen.gameObject.SetActive(true);
     }
 
     //Reset Day
     private IEnumerator ResetDay()
     {
+        //Wait until Fungus finished its current dialogue
+        while (FungusChart.isRunningDialogue)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
         BlackoutUI.FadeToBlack();
         FungusChart.StartDialogue(FChartID.ResetDay);
 

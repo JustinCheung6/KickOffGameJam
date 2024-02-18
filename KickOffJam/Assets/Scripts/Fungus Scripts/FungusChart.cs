@@ -50,7 +50,7 @@ public class FungusChart : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    private void Awake() 
     {
         #region Error Check
         bool errorShutdown = false;
@@ -93,6 +93,17 @@ public class FungusChart : MonoBehaviour
 
         //Add FungusChart to dictionary
         fungusDialogues.Add(id, this);
+    }
+
+    private void OnDisable()
+    {
+        if (fungusFlowchart == null)
+            return;
+        if(fungusDialogues == null)
+            return;
+
+        if(fungusDialogues.ContainsKey(id))
+            fungusDialogues.Remove(id);
     }
 
     #region static Methods
@@ -252,6 +263,7 @@ public enum FChartID
     LeakyCeiling,
     MustyCouch,
     Window,
+    ChuckFish,
     WinGame,
 
     none = -1,

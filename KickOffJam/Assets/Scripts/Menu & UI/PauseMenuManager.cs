@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 //Manages Pause Menu, Game Pausing
-public class PauseMenuManager : MonoBehaviour
+public class PauseMenuManager : MenuOptions
 {
     //Singleton
     private static PauseMenuManager instance = null;
@@ -57,15 +57,6 @@ public class PauseMenuManager : MonoBehaviour
         }
         
     }
-
-    private void QuitGame()
-    {
-        Application.Quit();
-    }
-    private void LoadScene(int level)
-    {
-        SceneManager.LoadScene(level);
-    }
     private void PauseGame()
     {
         Time.timeScale = 0f;
@@ -81,16 +72,10 @@ public class PauseMenuManager : MonoBehaviour
         gamePaused = false;
     }
 
-    //Methods used exclusively by Unity UI Buttons
-    #region Buttons Methods
-    public void ResumeGame_Button()
+
+
+    public void ResumeGame_Btn()
     {
         ResumeGame();
     }
-    public void QuitGame_Button()
-    {
-        QuitGame();
-    }
-
-    #endregion
 }

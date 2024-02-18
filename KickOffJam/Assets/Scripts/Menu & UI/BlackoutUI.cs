@@ -49,9 +49,6 @@ public class BlackoutUI : MonoBehaviour
         blackoutRect = blackoutImage.rectTransform;
         canvasRect = blackoutImage.canvas.GetComponent<RectTransform>();
 
-        //Setup Image
-        blackoutImage.gameObject.SetActive(false);
-
         StopAllCoroutines();
         isRunning = false;
 
