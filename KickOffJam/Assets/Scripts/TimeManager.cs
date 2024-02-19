@@ -67,8 +67,7 @@ public class TimeManager : MonoBehaviour
         else if (instance != this)
             Debug.LogError($"Found multiple instances of TimeManager:\nCurrent instance: {instance.gameObject.name},\nThis instance: {gameObject.name}");
 
-        firstRun = true;
-        ResetTimer();
+        ResetTimer(false);
     }
 
     public void LateUpdate()
@@ -90,8 +89,6 @@ public class TimeManager : MonoBehaviour
         //Check if time limit reached (reset day)
         if(timer > maxTime)
         {
-            timeOut = true;
-            firstRun = false;
             ResetTimer();
         }
         
@@ -109,8 +106,16 @@ public class TimeManager : MonoBehaviour
     }
 
     //Reset timer value and stop it
-    public void ResetTimer()
+    public void ResetTimer(bool endFirstRun = true)
     {
+        Debug.Log("Resetting Timer");
+        if (endFirstRun)
+        {
+            firstRun = false;
+            timeOut = true;
+        }
+
+        
         isRunning = false;
         timer = 0f;
         if (timerUI != null)

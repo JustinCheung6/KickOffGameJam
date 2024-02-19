@@ -204,6 +204,12 @@ public class FungusChart : MonoBehaviour
             fungusFlowchart.SetBooleanVariable(varName, false);
         }
 
+        //Reset special variables
+        if (fungusFlowchart.HasVariable("EndDay"))
+        {
+            fungusFlowchart.SetBooleanVariable("EndDay", false);
+        }
+
         //Finish by updating Running
         fungusFlowchart.SetBooleanVariable("Running", true);
     }
@@ -223,8 +229,6 @@ public class FungusChart : MonoBehaviour
     }
     private void UpdatePlayerProg()
     {
-        if (dialogueResults.Length == 0)
-            return;
         if (PlayerProgTracker.I == null)
         {
             Debug.LogError("PlayerProgTracker not available");
@@ -248,6 +252,13 @@ public class FungusChart : MonoBehaviour
 
         }
 
+        //Special Update "EndDay variable will have the timer end and the day automatically end when true
+        if (fungusFlowchart.HasVariable("EndDay"))
+        {
+            if (fungusFlowchart.GetBooleanVariable("EndDay"))
+                TimeManager.I.ResetTimer();
+        }
+
         Debug.Log("Finished Dialogue: " + id.ToString());
     }
     
@@ -260,6 +271,7 @@ public enum FChartID
 {
     OpeningDialogue,
     ResetDay,
+    Bed,
     LeakyCeiling,
     MustyCouch,
     Window,
