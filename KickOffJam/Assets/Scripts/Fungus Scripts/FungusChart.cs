@@ -252,11 +252,23 @@ public class FungusChart : MonoBehaviour
 
         }
 
-        //Special Update "EndDay variable will have the timer end and the day automatically end when true
+        //Special Update: "EndDay variable will have the timer end and the day automatically end when true
         if (fungusFlowchart.HasVariable("EndDay"))
         {
             if (fungusFlowchart.GetBooleanVariable("EndDay"))
                 TimeManager.I.ResetTimer();
+        }
+
+        //Special Update: Disable Furniture or fungusChart
+        if (fungusFlowchart.HasVariable("HideSelf"))
+        {
+            if (fungusFlowchart.GetBooleanVariable("HideSelf"))
+                Furniture.HideFurniture(id);
+        }
+        if (fungusFlowchart.HasVariable("DisableSelf"))
+        {
+            if (fungusFlowchart.GetBooleanVariable("DisableSelf"))
+                Furniture.DisableCollider(id);
         }
 
         Debug.Log("Finished Dialogue: " + id.ToString());
@@ -277,6 +289,8 @@ public enum FChartID
     Window,
     ChuckFish,
     WinGame,
+    Stool,
+    HousePlant,
 
     none = -1,
 }
