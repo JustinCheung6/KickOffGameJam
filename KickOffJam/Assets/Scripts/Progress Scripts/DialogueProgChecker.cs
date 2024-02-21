@@ -24,8 +24,20 @@ public class DialogueProgChecker : DialogueProgress
                     if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
                         return false;
                     break;
+                case ProgItems.openedDrawerEvent:
+                    if(openedDrawer != N_bool.Null && openedDrawer != p.OpenedDrawerEvent)
+                        return false;
+                    break;
+                case ProgItems.openedDoorEvent:
+                    if (openedDoor != N_bool.Null && openedDoor != p.OpenedDoorEvent)
+                        return false;
+                    break;
                 case ProgItems.sceneryEvent:
                     if (sceneryEvent != N_eventDialogue.Null && sceneryEvent != p.SceneryEvent)
+                        return false;
+                    break;
+                case ProgItems.doorEvent:
+                    if (doorEvent != N_eventDialogue.Null && doorEvent != p.DoorEvent)
                         return false;
                     break;
                 case ProgItems.doorKey:

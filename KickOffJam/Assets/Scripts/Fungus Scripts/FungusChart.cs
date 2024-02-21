@@ -291,6 +291,9 @@ public enum FChartID
     WinGame,
     Stool,
     HousePlant,
+    Drawer,
+    Door1,
+    Door2,
 
     none = -1,
 }

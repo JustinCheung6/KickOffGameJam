@@ -45,7 +45,18 @@ public class PlayerProgTracker : ProgressList
     {
         get => sceneryEvent;
     }
-
+    public N_bool OpenedDrawerEvent
+    {
+        get => openedDrawer;
+    }
+    public N_bool OpenedDoorEvent
+    {
+        get => openedDoor;
+    }
+    public N_eventDialogue DoorEvent
+    {
+        get => doorEvent;
+    }
     public N_keyItem HasDoorKey
     {
         get => doorKey;
@@ -68,9 +79,21 @@ public class PlayerProgTracker : ProgressList
     {
         spatCouchEvent = e;
     }
+    public void UpdateOpenedDrawerEvent(N_bool e)
+    {
+        openedDrawer = e;
+    }
+    public void UpdateOpenedDoorEvent(N_bool e)
+    {
+        openedDoor = e;
+    }
     public void UpdateSceneryEvent(N_eventDialogue e)
     {
         sceneryEvent = e;
+    }
+    public void UpdateDoorEvent(N_eventDialogue e)
+    {
+        doorEvent = e;
     }
     public void UpdateDoorKey(N_keyItem k)
     {

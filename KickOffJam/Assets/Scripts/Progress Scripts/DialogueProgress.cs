@@ -24,6 +24,12 @@ public class DialogueProgress : ProgressList
             progItemValues.Add(ProgItems.cupOfWater, cupOfWater.ToString());
         if (sceneryEvent != N_eventDialogue.Null)
             progItemValues.Add(ProgItems.sceneryEvent, sceneryEvent.ToString());
+        if(doorEvent != N_eventDialogue.Null)
+            progItemValues.Add(ProgItems.doorEvent, doorEvent.ToString());
+        if(openedDoor != N_bool.Null)
+            progItemValues.Add(ProgItems.openedDoorEvent, openedDoor.ToString());
+        if(openedDrawer != N_bool.Null)
+            progItemValues.Add(ProgItems.openedDrawerEvent, openedDrawer.ToString());
     }
 
 

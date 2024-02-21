@@ -9,7 +9,10 @@ public class ProgressList : MonoBehaviour
     [SerializeField] protected N_firstDay firstRun = N_firstDay.Null;
 
     [SerializeField] protected N_bool spatCouchEvent = N_bool.Null;
+    [SerializeField] protected N_bool openedDrawer = N_bool.Null;
+    [SerializeField] protected N_bool openedDoor = N_bool.Null;
     [SerializeField] protected N_eventDialogue sceneryEvent = N_eventDialogue.Null;
+    [SerializeField] protected N_eventDialogue doorEvent = N_eventDialogue.Null;
 
     [SerializeField] protected N_keyItem doorKey = N_keyItem.Null;
     [SerializeField] protected N_fishItem fish = N_fishItem.Null;
@@ -25,6 +28,9 @@ public enum ProgItems
     doorKey, 
     fish, 
     cupOfWater,
+    openedDrawerEvent,
+    openedDoorEvent,
+    doorEvent,
 }
 
 #region enumerations for inspector
@@ -32,6 +38,7 @@ public enum ProgItems
 public enum N_eventDialogue
 {
     Beginning,
+    Finished,
 
     Dialogue2nd, 
     Dialogue3rd, 
@@ -39,8 +46,11 @@ public enum N_eventDialogue
     Dialogue5th,
     Dialogue6th,
     Dialogue7th,
+    Dialogue8th,
+    Dialogue9th,
+    Dialogue10th,
+    Dialogue11th,
 
-    Finished,
     Null = -1,
 }
 
