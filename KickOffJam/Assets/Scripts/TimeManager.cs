@@ -28,7 +28,7 @@ public class TimeManager : MonoBehaviour
 
     [Header("Properties")]
     [Tooltip("How much time will pass before the day resets")]
-    [SerializeField] private float maxTime = 60f;
+    [SerializeField] private float maxTime = 80f;
 
     [Header("Object References")]
     [SerializeField] Text timerUI = null;

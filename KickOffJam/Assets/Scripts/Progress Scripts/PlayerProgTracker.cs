@@ -49,9 +49,9 @@ public class PlayerProgTracker : ProgressList
     {
         get => openedDrawer;
     }
-    public N_bool OpenedDoorEvent
+    public N_eventDialogue OpenedDoorEvent
     {
-        get => openedDoor;
+        get => openedDoorEvent;
     }
     public N_eventDialogue DoorEvent
     {
@@ -83,9 +83,9 @@ public class PlayerProgTracker : ProgressList
     {
         openedDrawer = e;
     }
-    public void UpdateOpenedDoorEvent(N_bool e)
+    public void UpdateOpenedDoorEvent(N_eventDialogue e)
     {
-        openedDoor = e;
+        openedDoorEvent = e;
     }
     public void UpdateSceneryEvent(N_eventDialogue e)
     {
@@ -106,6 +106,12 @@ public class PlayerProgTracker : ProgressList
     public void UpdateWaterCup(N_keyItem k)
     {
         cupOfWater = k;
+    }
+
+    //Used in GProgManager
+    public bool Door2EventReady
+    {
+        get => openedDoorEvent == N_eventDialogue.Dialogue2nd;
     }
     #endregion
 
@@ -128,8 +134,14 @@ public class PlayerProgTracker : ProgressList
     public void ResetProgress(bool firstDay)
     {
         firstRun = (firstDay) ? N_firstDay.FirstDay : (firstRun == N_firstDay.FirstDay) ? N_firstDay.SecondDay : N_firstDay.False;
+
         spatCouchEvent = N_bool.False;
+        openedDrawer = N_bool.False;
+
+        openedDoorEvent = N_eventDialogue.Beginning;
         sceneryEvent = N_eventDialogue.Beginning;
+        doorEvent = N_eventDialogue.Beginning;
+
         doorKey = N_keyItem.NotHave;
         fish = N_fishItem.NotHave;
         cupOfWater = N_keyItem.NotHave;

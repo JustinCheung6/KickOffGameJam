@@ -29,7 +29,7 @@ public class DialogueProgChecker : DialogueProgress
                         return false;
                     break;
                 case ProgItems.openedDoorEvent:
-                    if (openedDoor != N_bool.Null && openedDoor != p.OpenedDoorEvent)
+                    if (openedDoorEvent != N_eventDialogue.Null && openedDoorEvent != p.OpenedDoorEvent)
                         return false;
                     break;
                 case ProgItems.sceneryEvent:

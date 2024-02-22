@@ -42,8 +42,8 @@ public class DialogueProgUpdater : DialogueProgress
                         p.UpdateWaterCup(cupOfWater);
                     break;
                 case ProgItems.openedDoorEvent:
-                    if(openedDoor != N_bool.Null && openedDoor != p.OpenedDoorEvent)
-                        p.UpdateOpenedDoorEvent(openedDoor);
+                    if(openedDoorEvent != N_eventDialogue.Null && openedDoorEvent != p.OpenedDoorEvent)
+                        p.UpdateOpenedDoorEvent(openedDoorEvent);
                     break;
                 case ProgItems.openedDrawerEvent:
                     if(openedDrawer != N_bool.Null && openedDrawer != p.OpenedDrawerEvent)

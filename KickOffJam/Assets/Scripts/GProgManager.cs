@@ -108,7 +108,7 @@ public class GProgManager : MonoBehaviour
     private IEnumerator WaitForNextState()
     {
         //When one of these values change, the player wins or time is up
-        while (!TimeManager.I.TimedOut && !PlayerProgTracker.I.CheckWin())
+        while (!TimeManager.I.TimedOut && !PlayerProgTracker.I.CheckWin() && !PlayerProgTracker.I.Door2EventReady)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -120,6 +120,8 @@ public class GProgManager : MonoBehaviour
         }
         else if (TimeManager.I.TimedOut)
             StartCoroutine(ResetDay());
+        else if(PlayerProgTracker.I.Door2EventReady)
+            StartCoroutine(Door2CustomEvent());
     }
 
     //
@@ -177,6 +179,33 @@ public class GProgManager : MonoBehaviour
 
         PrepareNewDay();
     }
+
+    private IEnumerator Door2CustomEvent()
+    {
+        //Wait until Fungus finished its current dialogue
+        while (FungusChart.isRunningDialogue)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        BlackoutUI.FadeToBlack();
+        FungusChart.StartDialogue(FChartID.Door2);
+
+        while (FungusChart.isRunningDialogue || BlackoutUI.IsRunning)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        BlackoutUI.FadeOutBlack();
+
+        while (BlackoutUI.IsRunning)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        StartCoroutine(WaitForNextState());
+    }
+
     private void PrepareNewDay()
     {
         StopAllCoroutines();

@@ -10,7 +10,7 @@ public class ProgressList : MonoBehaviour
 
     [SerializeField] protected N_bool spatCouchEvent = N_bool.Null;
     [SerializeField] protected N_bool openedDrawer = N_bool.Null;
-    [SerializeField] protected N_bool openedDoor = N_bool.Null;
+    [SerializeField] protected N_eventDialogue openedDoorEvent = N_eventDialogue.Null;
     [SerializeField] protected N_eventDialogue sceneryEvent = N_eventDialogue.Null;
     [SerializeField] protected N_eventDialogue doorEvent = N_eventDialogue.Null;
 

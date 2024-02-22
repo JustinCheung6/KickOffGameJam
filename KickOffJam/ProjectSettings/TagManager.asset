@@ -39,6 +39,18 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Floor
+    uniqueID: 2078080651
+    locked: 0
+  - name: Below Walls
+    uniqueID: 478823649
+    locked: 0
+  - name: Walls
+    uniqueID: 3241026959
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 2257558537
     locked: 0
