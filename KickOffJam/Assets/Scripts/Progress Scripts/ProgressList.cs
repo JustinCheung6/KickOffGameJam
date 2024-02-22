@@ -23,6 +23,7 @@ public class ProgressList : MonoBehaviour
 public enum ProgItems
 {
     firstRun,
+
     spatCouchEvent,
     sceneryEvent,
     doorKey, 

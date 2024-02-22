@@ -21,14 +21,28 @@ public class DialogueProgUpdater : DialogueProgress
                     if (firstRun != N_firstDay.Null)
                         p.UpdateFirstRun(firstRun);
                     break;
+                //----------------------------------
                 case ProgItems.spatCouchEvent:
                     if (spatCouchEvent != N_bool.Null && spatCouchEvent != p.SpatCouchEvent)
                         p.UpdateSpatCouchEvent(spatCouchEvent);
+                    break;
+                case ProgItems.openedDrawerEvent:
+                    if (openedDrawer != N_bool.Null && openedDrawer != p.OpenedDrawerEvent)
+                        p.UpdateOpenedDrawerEvent(openedDrawer);
+                    break;
+                case ProgItems.openedDoorEvent:
+                    if (openedDoorEvent != N_eventDialogue.Null && openedDoorEvent != p.OpenedDoorEvent)
+                        p.UpdateSceneryEvent(openedDoorEvent);
                     break;
                 case ProgItems.sceneryEvent:
                     if (sceneryEvent != N_eventDialogue.Null && sceneryEvent != p.SceneryEvent)
                         p.UpdateSceneryEvent(sceneryEvent);
                     break;
+                case ProgItems.doorEvent:
+                    if(doorEvent != N_eventDialogue.Null && sceneryEvent != p.DoorEvent)
+                        p.UpdateDoorEvent(doorEvent);
+                    break;
+                //----------------------------------
                 case ProgItems.doorKey:
                     if (doorKey != N_keyItem.Null && doorKey != p.HasDoorKey)
                         p.UpdateDoorKey(doorKey);
@@ -40,14 +54,6 @@ public class DialogueProgUpdater : DialogueProgress
                 case ProgItems.cupOfWater:
                     if (cupOfWater != N_keyItem.Null && cupOfWater != p.HasWaterCup)
                         p.UpdateWaterCup(cupOfWater);
-                    break;
-                case ProgItems.openedDoorEvent:
-                    if(openedDoorEvent != N_eventDialogue.Null && openedDoorEvent != p.OpenedDoorEvent)
-                        p.UpdateOpenedDoorEvent(openedDoorEvent);
-                    break;
-                case ProgItems.openedDrawerEvent:
-                    if(openedDrawer != N_bool.Null && openedDrawer != p.OpenedDrawerEvent)
-                        p.UpdateOpenedDrawerEvent(openedDrawer);
                     break;
 
 
